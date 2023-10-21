@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To do list</title>
     <link rel="shortcut icon" href="images/to-do-list-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="index.css">
-    <script defer src="index.js"></script>
+    <script defer type="module" src="index.js"></script>
 </head>
+
 <body>
     <header>
         <h1>
@@ -55,13 +57,15 @@
     <footer>Copyright © 2023 by Emil Abdullayev.All rights reserved.</footer>
 
 
-    <template id="task">
-        <li>
+    <template>
+        <li style="margin: 20px 10px;">
+            <input type="checkbox">
             <span class="name"></span>
+            <span>, </span>
             <span class="date"></span>
-            <button>Edit</button>
-            <button>Remove</button>
+            <button class="edit">Edit</button>
+            <button class="remove">Remove</button>
         </li>
-      </template>
+    </template>
 </body>
 </html>

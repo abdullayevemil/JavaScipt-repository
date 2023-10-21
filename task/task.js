@@ -8,10 +8,10 @@ class Task {
 
     #date;
 
-    #isDone;
+    #completionStatus;
 
     constructor(name, description) {
-
+        console.log(name, description);
         if (!(typeof name === 'string' && name)) {
             throw new Error("Invalid name was entered");
         }
@@ -26,13 +26,13 @@ class Task {
 
         this.#description = description;
 
-        this.#date = new Date().getDate();
+        this.#date = (new Date(Date.now())).toString().split('G')[0];
 
-        this.#isDone = false;
+        this.#completionStatus = false;
     }
 
-    invertIsDone() {
-        this.#isDone != this.#isDone;
+    invertcompletionStatus() {
+        this.#completionStatus != this.#completionStatus;
     }
 
     get id() {
@@ -51,7 +51,8 @@ class Task {
         return this.#date;
     }
 
-    get isDone() {
-        return this.#isDone;
+    get completionStatus() {
+        return this.#completionStatus;
     }
 }
+export default Task;

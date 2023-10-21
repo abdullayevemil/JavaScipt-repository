@@ -5,3 +5,7 @@ body {
     padding: 0 100px;
     color: gold;
 }
+body,
+html {
+    height: 100%;
+}

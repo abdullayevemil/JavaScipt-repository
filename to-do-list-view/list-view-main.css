@@ -26,4 +26,17 @@ button {
 
 ul {
     border: 4px double gold;
+    list-style-type: none;
+}
+
+li {
+    margin: 20px 10px;
+}
+
+li:hover {
+    background-color: #815334;
+}
+
+li button {
+    font-size: 28px;
 }

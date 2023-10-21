@@ -1,3 +1,4 @@
+import Task from '../task/task.js'
 class TasksList {
 
     #tasksList;
@@ -6,9 +7,9 @@ class TasksList {
 
         if (Array.isArray(tasks) && tasks.every((task) => Task.prototype.isPrototypeOf(task))) {
             this.#tasksList = tasks;
-        } else if (Music.prototype.isPrototypeOf(data)) {
+        } else if (Task.prototype.isPrototypeOf(tasks)) {
             this.#tasksList = [tasks];
-        } else if (data === undefined) {
+        } else if (tasks === undefined) {
             this.#tasksList = [];
         }
         else {
@@ -19,7 +20,7 @@ class TasksList {
 
     addTask(task) {
 
-        if (!(Task.prototype.isPrototypeOf(task) && typeof task.name() === 'string' && task.name() && task.description() && task.description())) {
+        if (!(Task.prototype.isPrototypeOf(task) && typeof task.name === 'string' && task.name && task.description && task.description)) {
             throw new Error("Invalid task to add");
         }
 
@@ -29,7 +30,7 @@ class TasksList {
 
     removeTask(task) {
 
-        if (!(Task.prototype.isPrototypeOf(task) && typeof task.name() === 'string' && task.name() && task.description() && task.description())) {
+        if (!(Task.prototype.isPrototypeOf(task) && typeof task.name === 'string' && task.name && task.description && task.description)) {
             throw new Error("Invalid task to remove");
         }
 
@@ -49,3 +50,4 @@ class TasksList {
         return this.#tasksList.find(task => task.isDone() === false);
     }
 }
+export default TasksList;

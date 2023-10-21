@@ -8,6 +8,25 @@ const listItemTemplate = document.querySelector('template');
 const tasks = new TasksList();
 
 
+function createModalWindow() {
+    const window = document.createElement('div');
+    window.style.backgroundColor = 'grey';
+    window.style.width = '100%';
+    window.style.height = '100%';
+    window.style.position = 'absolute';
+    window.style.top = 0;
+    window.style.left = 0;
+    const modalWindowContent = document.createElement('div');
+    modalWindowContent.style.backgroundColor = 'white';
+    const form = createAddForm();
+    modalWindowContent.appendChild(form);
+    window.appendChild(modalWindowContent);
+    addButton.addEventListener('click', () => document.body.append(window));
+    return window;
+}
+
+const modalWindow = createModalWindow();
+
 function createAddForm() {
     const form = document.createElement('form');
     form.appendChild(createAddFieldset());

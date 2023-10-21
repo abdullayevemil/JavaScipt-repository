@@ -1,0 +1,29 @@
+span, 
+select, 
+h2 {
+    font-size: 35px;
+}
+
+section:nth-child(1) {
+    display: flex;
+    flex-direction: row;
+}
+
+section:nth-child(2) h2 {
+    display: inline-block;
+}
+
+section:nth-child(1) article {
+    width: 50%;
+}
+
+button {
+    float: right;
+    font-size: 35px;
+    color: inherit;
+    background-color: inherit;
+}
+
+ul {
+    border: 4px double gold;
+}

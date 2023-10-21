@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <link rel="shortcut icon" href="images/to-do-list-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="index.css">
+    <script defer src="index.js"></script>
+</head>
+<body>
+    <header>
+        <h1>
+            Home
+        </h1>
+    </header>
+    <main>
+        <section>
+            <article>
+                <h2>
+                    Sort
+                </h2>
+                <span>Sort by: </span>
+                <select>
+                    <option>Name</option>
+                    <option>Date</option>
+                </select>
+            </article>
+            <article>
+                <h2>
+                    Filter
+                </h2>
+                <span>Show: </span>
+                <select>
+                    <option>All</option>
+                    <option>Done</option>
+                    <option>Undone</option>
+                </select>
+            </article>
+        </section>
+        <section>
+            <article>
+                <h2>
+                    Tasks
+                </h2>
+                <button>&#x2795;</button>
+            </article>
+        </section>
+        <section>
+            <article>
+                <ul></ul>
+            </article>
+        </section>
+    </main>
+    <footer>Copyright © 2023 by Emil Abdullayev.All rights reserved.</footer>
+
+
+    <template id="task">
+        <li>
+            <span class="name"></span>
+            <span class="date"></span>
+            <button>Edit</button>
+            <button>Remove</button>
+        </li>
+      </template>
+</body>
+</html>

@@ -39,12 +39,18 @@ function createAddFieldset() {
     const descriptionLabel = createLabel('description');
     fieldset.appendChild(descriptionLabel);
     const backButton = createButton('button', 'Back to Home');
-    backButton.addEventListener('click', () => document.body.removeChild(modalWindow));
+    backButton.addEventListener('click', () => {
+        nameLabel.children[0].value = "";
+        descriptionLabel.children[0].value = "";
+        document.body.removeChild(modalWindow);
+    });
     const addButton = createButton('button', 'Add');
     addButton.addEventListener('click', () => {
         try {
             const newTask = new Task(nameLabel.children[0].value, descriptionLabel.children[0].value);
             tasks.addTask(newTask);
+            nameLabel.children[0].value = "";
+            descriptionLabel.children[0].value = "";
             document.body.removeChild(modalWindow);
         } catch (error) {
             alert(error);
@@ -117,6 +123,16 @@ export function sortList() {
     else if (option === "Date") {
         const items = [...tasksList.children].slice(0).sort((firstLi, secondLi) => secondLi.children[3].textContent.localeCompare(firstLi.children[3].textContent));
         tasksList.replaceChildren();
-        items.forEach(item => tasksList.appendChild(item));        
+        items.forEach(item => tasksList.appendChild(item));
     }
+}
+
+const params = new URLSearchParams(window.location.search);
+const taskData = params.get('taskData');
+if (taskData !== null) {
+    tasks.updateTask({
+        id: taskData.split(',')[0],
+        name: taskData.split(',')[1],
+        description: taskData.split(',')[2]
+    });
 }

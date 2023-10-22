@@ -1,5 +1,5 @@
 import Task from '../task/task.js'
-import {filterList, sortList} from '../index.js'
+import { filterList, sortList } from '../index.js'
 class TasksList {
 
     #tasksList;
@@ -76,7 +76,7 @@ class TasksList {
 
     removeTask(task) {
 
-        if (!(Task.prototype.isPrototypeOf(task) && typeof task.name === 'string' && task.name && task.description && task.description)) {
+        if (!(Task.prototype.isPrototypeOf(task) && typeof task.name === 'string' && typeof task.description === 'string' && task.name && task.description)) {
             throw new Error("Invalid task to remove");
         }
         const index = this.#tasksList.indexOf(task);
@@ -84,6 +84,16 @@ class TasksList {
         tasksList.removeChild(this.#listItems[index]);
         this.#listItems.splice(index, 1);
         localStorage.setItem("tasksList", JSON.stringify(this.createTasksListForJson()));
+    }
+
+    updateTask(task) {
+        const index = this.#tasksList.indexOf(this.#tasksList.find(element => element.id === task.id));
+        this.#tasksList[index].name = task.name;
+        this.#tasksList[index].description = task.description;
+        this.#listItems[index].children[1].textContent = task.name;
+        localStorage.setItem("tasksList", JSON.stringify(this.createTasksListForJson()));
+        filterList();
+        sortList();
     }
 }
 const tasksList = document.querySelector('ul');
@@ -107,7 +117,7 @@ function createTemplateClone(task, tasks) {
         localStorage.setItem("tasksList", JSON.stringify(tasks.tasksList));
     });
     buttons[0].addEventListener('click', () => {
-        
+        window.location.href = `../edit/edit.html?taskData=${[task.id, task.name, task.description, task.completionStatus]}`;
     });
     return clone;
 }

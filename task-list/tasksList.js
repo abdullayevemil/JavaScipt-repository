@@ -1,5 +1,5 @@
 import Task from '../task/task.js'
-import filterList from '../index.js'
+import {filterList, sortList} from '../index.js'
 class TasksList {
 
     #tasksList;
@@ -28,6 +28,10 @@ class TasksList {
         return this.#listItems.slice(0);
     }
 
+    get tasksList() {
+        return this.#tasksList.slice(0);
+    }
+
     addTask(task) {
 
         if (!(Task.prototype.isPrototypeOf(task) && typeof task.name === 'string' && task.name && task.description && task.description)) {
@@ -40,6 +44,7 @@ class TasksList {
         tasksList.appendChild(this.#newListItem);
         this.#listItems.push(this.#newListItem);
         filterList();
+        sortList();
     }
 
     removeTask(task) {
@@ -51,10 +56,6 @@ class TasksList {
         this.#tasksList.splice(index, 1);
         tasksList.removeChild(this.#listItems[index]);
         this.#listItems.splice(index, 1);
-    }
-
-    showAllTasks() {
-        return this.#tasksList.slice(0);
     }
 }
 const tasksList = document.querySelector('ul');
@@ -70,6 +71,7 @@ function createTemplateClone(task, tasks) {
     checkbox.addEventListener('click', () => {
         task.invertcompletionStatus();
         filterList();
+        sortList();
     });
     buttons[1].addEventListener('click', () => {
         tasks.removeTask(task);

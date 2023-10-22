@@ -80,10 +80,16 @@ function createButton(type, text) {
     return button;
 }
 
-filterBy.addEventListener('change', filterList);
+filterBy.addEventListener('change', () => {
+    filterList();
+    sortList();
+});
+sortBy.addEventListener('change', () => {
+    filterList();
+    sortList();
+});
 
-
-function filterList() {
+export function filterList() {
     const option = filterBy.value;
     if (option === "All") {
         tasksList.replaceChildren();
@@ -99,6 +105,19 @@ function filterList() {
         tasksList.replaceChildren();
         items.forEach(item => tasksList.appendChild(item));
     }
+
 }
 
-export default filterList;
+export function sortList() {
+    const option = sortBy.value;
+    if (option === "Name") {
+        const items = [...tasksList.children].slice(0).sort((firstLi, secondLi) => firstLi.children[1].textContent.localeCompare(secondLi.children[1].textContent));
+        tasksList.replaceChildren();
+        items.forEach(item => tasksList.appendChild(item));
+    }
+    else if (option === "Date") {
+        const items = [...tasksList.children].slice(0).sort((firstLi, secondLi) => secondLi.children[3].textContent.localeCompare(firstLi.children[3].textContent));
+        tasksList.replaceChildren();
+        items.forEach(item => tasksList.appendChild(item));        
+    }
+}

@@ -1,11 +1,12 @@
 import TasksList from "./task-list/tasksList.js";
 import Task from "./task/task.js"
-const filterBy = document.querySelector('select:nth-of-type(2)');
-const sortBy = document.querySelector('select:first-of-type');
+const filterBy = document.querySelector('.filterBy');
+const sortBy = document.querySelector('.sortBy');
 const addButton = document.querySelector('button:first-of-type');
-
+let tasksList = document.querySelector('ul');
 const tasks = new TasksList();
 
+const modalWindow = createModalWindow();
 
 function createModalWindow() {
     const window = document.createElement('div');
@@ -24,8 +25,6 @@ function createModalWindow() {
     return window;
 }
 
-const modalWindow = createModalWindow();
-
 function createAddForm() {
     const form = document.createElement('form');
     form.appendChild(createAddFieldset());
@@ -39,13 +38,17 @@ function createAddFieldset() {
     fieldset.appendChild(nameLabel);
     const descriptionLabel = createLabel('description');
     fieldset.appendChild(descriptionLabel);
-    const backButton = createButton('submit', 'Back to Home');
+    const backButton = createButton('button', 'Back to Home');
     backButton.addEventListener('click', () => document.body.removeChild(modalWindow));
-    const addButton = createButton('submit', 'Add');
+    const addButton = createButton('button', 'Add');
     addButton.addEventListener('click', () => {
-        const newTask = new Task(nameLabel.children[0].value, descriptionLabel.children[0].value);
-        tasks.addTask(newTask);
-        document.body.removeChild(modalWindow);
+        try {
+            const newTask = new Task(nameLabel.children[0].value, descriptionLabel.children[0].value);
+            tasks.addTask(newTask);
+            document.body.removeChild(modalWindow);
+        } catch (error) {
+            alert(error);
+        }
     })
     fieldset.appendChild(addButton);
     fieldset.appendChild(backButton);
@@ -76,3 +79,26 @@ function createButton(type, text) {
     button.textContent = text;
     return button;
 }
+
+filterBy.addEventListener('change', filterList);
+
+
+function filterList() {
+    const option = filterBy.value;
+    if (option === "All") {
+        tasksList.replaceChildren();
+        tasks.listItems.forEach(item => tasksList.appendChild(item));
+    }
+    else if (option === "Done") {
+        const items = tasks.listItems.filter(li => li.children[0].checked === true);
+        tasksList.replaceChildren();
+        items.forEach(item => tasksList.appendChild(item));
+    }
+    else if (option === "Undone") {
+        const items = tasks.listItems.filter(li => li.children[0].checked === false);
+        tasksList.replaceChildren();
+        items.forEach(item => tasksList.appendChild(item));
+    }
+}
+
+export default filterList;

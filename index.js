@@ -3,8 +3,7 @@ import Task from "./task/task.js"
 const filterBy = document.querySelector('select:nth-of-type(2)');
 const sortBy = document.querySelector('select:first-of-type');
 const addButton = document.querySelector('button:first-of-type');
-const tasksList = document.querySelector('ul');
-const listItemTemplate = document.querySelector('template');
+
 const tasks = new TasksList();
 
 
@@ -44,17 +43,8 @@ function createAddFieldset() {
     backButton.addEventListener('click', () => document.body.removeChild(modalWindow));
     const addButton = createButton('submit', 'Add');
     addButton.addEventListener('click', () => {
-        console.log(nameLabel.children[0].value,
-            descriptionLabel.children[0].value);
         const newTask = new Task(nameLabel.children[0].value, descriptionLabel.children[0].value);
-        console.log(tasks);
-        const clone = listItemTemplate.content.cloneNode(true);
-        const spans = clone.querySelectorAll("span");
-        spans[0].textContent = newTask.name;
-        spans[2].textContent = newTask.date;
-        tasksList.appendChild(clone);
         tasks.addTask(newTask);
-        console.log(tasks);
         document.body.removeChild(modalWindow);
     })
     fieldset.appendChild(addButton);

@@ -11,7 +11,6 @@ class Task {
     #completionStatus;
 
     constructor(name, description) {
-        console.log(name, description);
         if (!(typeof name === 'string' && name)) {
             throw new Error("Invalid name was entered");
         }
@@ -32,7 +31,7 @@ class Task {
     }
 
     invertcompletionStatus() {
-        this.#completionStatus != this.#completionStatus;
+        this.#completionStatus = !this.#completionStatus;
     }
 
     get id() {

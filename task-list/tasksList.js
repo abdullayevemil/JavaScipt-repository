@@ -61,6 +61,12 @@ class TasksList {
         this.#tasksList.push(task);
         this.#clone = createTemplateClone(task, this);
         this.#newListItem = this.#clone.children[0];
+        this.#newListItem.children[1].addEventListener('click', () => {
+            window.location.href = `../more-details/details.html?taskData=${[task.id, task.name, task.description, task.date, task.completionStatus]}`;
+        })
+        this.#newListItem.children[3].addEventListener('click', () => {
+            window.location.href = `../more-details/details.html?taskData=${[task.id, task.name, task.description, task.date, task.completionStatus]}`;
+        })
         tasksList.appendChild(this.#newListItem);
         this.#listItems.push(this.#newListItem);
         filterList();
@@ -99,6 +105,9 @@ function createTemplateClone(task, tasks) {
     buttons[1].addEventListener('click', () => {
         tasks.removeTask(task);
         localStorage.setItem("tasksList", JSON.stringify(tasks.tasksList));
+    });
+    buttons[0].addEventListener('click', () => {
+        
     });
     return clone;
 }

@@ -8,20 +8,11 @@ class TasksList {
 
     #newListItem;
 
-    #listItems = [];
+    #listItems;
 
-    constructor(tasks) {
-
-        if (Array.isArray(tasks) && tasks.every((task) => Task.prototype.isPrototypeOf(task))) {
-            this.#tasksList = tasks;
-        } else if (Task.prototype.isPrototypeOf(tasks)) {
-            this.#tasksList = [tasks];
-        } else if (tasks === undefined) {
-            this.#tasksList = [];
-        }
-        else {
-            throw new Error("Invalid data was entered!");
-        }
+    constructor() {
+        this.#tasksList = [];
+        this.#listItems = [];
     }
 
     get listItems() {
@@ -30,6 +21,35 @@ class TasksList {
 
     get tasksList() {
         return this.#tasksList.slice(0);
+    }
+
+    createTasksListForJson() {
+        const jsonTasks = [];
+        this.#tasksList.forEach(task => {
+            jsonTasks.push({
+                id: task.id,
+                name: task.name,
+                description: task.description,
+                date: task.date,
+                completionStatus: task.completionStatus,
+            })
+        });
+        return jsonTasks;
+    }
+
+    initializeTasksListFromJson() {
+        const dataToLoad = JSON.parse(localStorage.getItem("tasksList"));
+        if (dataToLoad === null) {
+            return;
+        }
+        const loadedTasks = dataToLoad.map(e => {
+            const task = new Task(e.name, e.description);
+            task.id = e.id;
+            task.completionStatus = e.completionStatus;
+            task.date = e.date;
+            return task;
+        });
+        loadedTasks.forEach(task => this.addTask(task));
     }
 
     addTask(task) {
@@ -45,6 +65,7 @@ class TasksList {
         this.#listItems.push(this.#newListItem);
         filterList();
         sortList();
+        localStorage.setItem("tasksList", JSON.stringify(this.createTasksListForJson()));
     }
 
     removeTask(task) {
@@ -56,6 +77,7 @@ class TasksList {
         this.#tasksList.splice(index, 1);
         tasksList.removeChild(this.#listItems[index]);
         this.#listItems.splice(index, 1);
+        localStorage.setItem("tasksList", JSON.stringify(this.createTasksListForJson()));
     }
 }
 const tasksList = document.querySelector('ul');
@@ -72,9 +94,11 @@ function createTemplateClone(task, tasks) {
         task.invertcompletionStatus();
         filterList();
         sortList();
+        localStorage.setItem("tasksList", JSON.stringify(tasks.tasksList));
     });
     buttons[1].addEventListener('click', () => {
         tasks.removeTask(task);
+        localStorage.setItem("tasksList", JSON.stringify(tasks.tasksList));
     });
     return clone;
 }

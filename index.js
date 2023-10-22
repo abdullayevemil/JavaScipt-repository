@@ -5,7 +5,7 @@ const sortBy = document.querySelector('.sortBy');
 const addButton = document.querySelector('button:first-of-type');
 let tasksList = document.querySelector('ul');
 const tasks = new TasksList();
-
+tasks.initializeTasksListFromJson();
 const modalWindow = createModalWindow();
 
 function createModalWindow() {
@@ -105,7 +105,6 @@ export function filterList() {
         tasksList.replaceChildren();
         items.forEach(item => tasksList.appendChild(item));
     }
-
 }
 
 export function sortList() {

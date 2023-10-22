@@ -1,1 +1,64 @@
-@import "./to-do-list-view/list-view.css";
+body {
+    background-color: #3B291D;
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    padding: 0 100px;
+    color: gold;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+span, 
+select, 
+h2 {
+    font-size: 35px;
+}
+
+section:nth-child(1) {
+    display: flex;
+    flex-direction: row;
+}
+
+section:nth-child(2) h2 {
+    display: inline-block;
+}
+
+section:nth-child(1) article {
+    width: 50%;
+}
+
+button {
+    float: right;
+    font-size: 35px;
+    color: inherit;
+    background-color: inherit;
+}
+
+ul {
+    border: 4px double gold;
+    list-style-type: none;
+}
+
+li {
+    margin: 20px 10px;
+}
+
+li:hover {
+    background-color: #815334;
+}
+
+li button {
+    font-size: 28px;
+}
+
+footer {
+    text-align: center;
+    font-size: 20px;
+}

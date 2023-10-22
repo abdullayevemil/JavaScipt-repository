@@ -53,5 +53,40 @@ class Task {
     get completionStatus() {
         return this.#completionStatus;
     }
+
+    set id(id) {
+        if (!(typeof id === 'string' && id)) {
+            throw new Error("Invalid id was entered");
+        }
+        this.#id = id;
+    }
+
+    set name(name) {
+        if (!(typeof name === 'string' && name)) {
+            throw new Error("Invalid name was entered");
+        }
+        this.#name = name;
+    }
+
+    set description(description) {
+        if (!(typeof description === 'string' && description)) {
+            throw new Error("Invalid description was entered");
+        }
+        this.#description = description;
+    }
+
+    set date(date) {
+        if (!(typeof date === 'string' && date)) {
+            throw new Error("Invalid date was entered");
+        }
+        this.#date = date;
+    }
+
+    set completionStatus(completionStatus) {
+        if (!(typeof completionStatus === 'boolean' && completionStatus !== null && completionStatus !== undefined)) {
+            throw new Error("Invalid completion status was entered");
+        }
+        this.#completionStatus = completionStatus;
+    }
 }
 export default Task;

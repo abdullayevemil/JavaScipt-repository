@@ -54,7 +54,7 @@ class TasksList {
 
     addTask(task) {
 
-        if (!(Task.prototype.isPrototypeOf(task) && typeof task.name === 'string' && task.name && task.description && task.description)) {
+        if (!(Task.prototype.isPrototypeOf(task))) {
             throw new Error("Invalid task to add");
         }
 

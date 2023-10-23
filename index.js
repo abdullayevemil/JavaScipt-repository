@@ -1,5 +1,6 @@
 import TasksList from "./task-list/tasksList.js";
 import Task from "./task/task.js"
+import { isNameValid, isDescriptionValid } from '../regex-validations/regex-validations.js'
 const filterBy = document.querySelector('.filterBy');
 const sortBy = document.querySelector('.sortBy');
 const addButton = document.querySelector('button:first-of-type');
@@ -47,6 +48,10 @@ function createAddFieldset() {
     const addButton = createButton('button', 'Add');
     addButton.addEventListener('click', () => {
         try {
+            if (!isNameValid(nameLabel.children[0].value) || !isDescriptionValid(descriptionLabel.children[0].value))
+            {
+                throw new Error("Invalid name or description");
+            }
             const newTask = new Task(nameLabel.children[0].value, descriptionLabel.children[0].value);
             tasks.addTask(newTask);
             nameLabel.children[0].value = "";
